@@ -19,13 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] == "/edit/it
 		$stmt = mysqli_prepare($db, "UPDATE lager SET name = ?, stock = ?, price = ?, cost = ?, manufacturer = ? WHERE id = ?");
 		mysqli_stmt_bind_param($stmt, "siiisi", $_POST['stockName'], $_POST['stockInt'], $_POST['stockPrice'], $_POST['stockCost'], $_POST['stockManufacturer'], $_POST['stockId']);
 		mysqli_stmt_execute($stmt);
+		header('Location: /edit');
 		//mysqli_query($db, "UPDATE lager SET name = $_POST['stockName'], stock = $_POST['stockInt'], price = $_POST['stockPrice'], cost = $_POST['stockCost'], manufacturer = $_POST['stockManufacturer'] WHERE id = $_POST['stockId']");
 	}
-	elseif (isset($_POST['remove_button'])) {
+	elseif (isset($_POST['remove_item'])) {
 		// prepare query and add user changed values
 		$stmt = mysqli_prepare($db, "DELETE FROM lager WHERE id = ?");
 		mysqli_stmt_bind_param($stmt, "i", $_POST['stockId']);
 		mysqli_stmt_execute($stmt);
+		header('Location: /edit');
 	}
 }
 
@@ -76,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] == "/edit/ad
 			<form action="/edit/add" method="post">
 				<label for="stockInput">Add stock</label>
 				<input type="text" id="stockInput" name="stockInput">
-				<input type="submit" name="add_button" value="Add">
-				<input type="submit" name="delete_button" value="Remove">
+				<input type="submit" class="btn border-solid border-sky-500" name="add_button" value="Add">
+				<input type="submit" class="btn border-solid border-sky-500" name="delete_button" value="Remove">
 			</form>
 			<br>
 			<input type="text" id="searchTable" onkeyup="tableSearch()" placeholder="Search names..">
