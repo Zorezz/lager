@@ -19,3 +19,11 @@ function tableSearch() {
     }
   }
 }
+
+function checkIn() {
+  eanVal = document.getElementById("itemCheckin").value;
+  console.log(eanVal);
+  document.getElementById("hiddenEanval").value = eanVal;
+  console.log(document.getElementById("hiddenEanval").value);
+  document.getElementById("form1").style.display = 'block';
+}
